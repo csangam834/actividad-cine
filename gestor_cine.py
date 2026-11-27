@@ -115,6 +115,46 @@ class GestorCine:
                 salir=True
             else:
                 print("Opción incorrecta")
+                
+    
+    def consultar_cartelera(self):
+        print("\n========== CARTELERA ==========")
+
+        for i, sesion in enumerate(self.sesiones):
+            print("\nSesion:", i + 1)
+            print("Pelicula:", sesion.pelicula.titulo)
+            print("Sala:", sesion.sala.nombre)
+            print("Fecha:", sesion.fecha)
+            print("Hora:", sesion.hora)
+            print("Precio:", sesion.precio_base, "€")
+
+    def consultar_disponibilidad(self, sesion_id):
+        if sesion_id < 1 or sesion_id > len(self.sesiones):
+            print("Sesion no encontrada")
+            return
+
+        sesion = self.sesiones[sesion_id - 1]
+
+        print("\n======= DISPONIBILIDAD =======")
+        print("Pelicula:", sesion.pelicula.titulo)
+        print("Sala:", sesion.sala.nombre)
+
+        for butaca in sesion.sala.butacas:
+            ocupada = False
+
+            for entrada in self.entradas:
+                if entrada.sesion == sesion and entrada.butaca == butaca:
+                    ocupada = True
+
+            if ocupada:
+                estado = "OCUPADA"
+            else:
+                estado = "LIBRE"
+
+            print("Fila:", butaca.fila,
+                  "Butaca:", butaca.numero,
+                  "-", estado)
+
 
 def gestionar_sesiones(self):
     salir = False
